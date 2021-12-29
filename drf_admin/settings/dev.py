@@ -14,6 +14,9 @@ import os
 import sys
 
 import psutil
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -119,9 +122,16 @@ WSGI_APPLICATION = 'drf_admin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',  # 默认用mysql
+        'NAME': 'drf_admin',                        # 数据库名 (默认与APP_ID相同)
+        'USER': 'root',                        # 你的数据库user
+        'PASSWORD': 'mysql3142@@',                    # 你的数据库password
+        'HOST': 'localhost',                   # 开发的时候，使用localhost
+        'PORT': '3306',                        # 默认3306
+        'TEST': {
+            'NAME': 'drf_admin_test'
+        }
+    },
 }
 
 # Redis
@@ -239,7 +249,7 @@ JWT_AUTH = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'oauth.utils.UsernameMobileAuthBackend',  # 自定义用户认证方法
+    'drf_admin.apps.oauth.utils.UsernameMobileAuthBackend',  # 自定义用户认证方法
 ]
 
 DEFAULT_PWD = os.getenv('DEFAULT_PWD', '123456')  # 创建用户默认密码

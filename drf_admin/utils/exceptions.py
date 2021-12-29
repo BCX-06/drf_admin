@@ -18,8 +18,8 @@ from rest_framework.response import Response
 from rest_framework.views import set_rollback
 
 # 获取在配置文件中定义的logger，用来记录日志
-from monitor.models import ErrorLogs
-from oauth.utils import get_request_ip
+from drf_admin.apps.monitor.models import ErrorLogs
+from drf_admin.apps.oauth.utils import get_request_ip
 
 logger = logging.getLogger('error')
 
